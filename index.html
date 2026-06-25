@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yoshinori Kitagawa — SE / DX Developer & Advisor</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F4F7FB;
+  --surface:#FFFFFF;
+  --teal:#00B4BD;
+  --blue:#2563EB;
+  --dark:#0F1B35;
+  --mid:#4B5878;
+  --muted:#8E99B0;
+  --border:#DDE4F0;
+  --code-bg:#0F1B35;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--dark);font-family:'Noto Sans JP','Space Grotesk',sans-serif;line-height:1.6;overflow-x:hidden}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:1rem 3rem;background:rgba(244,247,251,0.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1rem;color:var(--dark);text-decoration:none;letter-spacing:0.02em}
+.nav-logo span{color:var(--teal)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{color:var(--muted);font-size:0.82rem;text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;font-family:'Space Grotesk',sans-serif;transition:color .2s}
+.nav-links a:hover{color:var(--teal)}
+
+/* ── HERO ── */
+#hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:4rem;padding:8rem 3rem 4rem;max-width:1200px;margin:0 auto}
+.hero-tag{display:inline-flex;align-items:center;gap:0.5rem;font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--teal);background:rgba(0,180,189,0.08);border:1px solid rgba(0,180,189,0.25);padding:0.35rem 0.8rem;border-radius:4px;margin-bottom:1.5rem}
+.hero-tag::before{content:'>';color:var(--teal)}
+h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(2.8rem,5vw,4.5rem);font-weight:700;line-height:1.05;letter-spacing:-0.03em}
+h1 .teal{color:var(--teal)}
+h1 .blue{color:var(--blue)}
+.hero-roles{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1.2rem}
+.role-chip{font-family:'Space Grotesk',sans-serif;font-size:0.78rem;font-weight:500;padding:0.3rem 0.8rem;border-radius:3px;letter-spacing:0.04em}
+.chip-teal{background:rgba(0,180,189,0.12);color:var(--teal);border:1px solid rgba(0,180,189,0.3)}
+.chip-blue{background:rgba(37,99,235,0.1);color:var(--blue);border:1px solid rgba(37,99,235,0.25)}
+.chip-purple{background:rgba(139,92,246,0.1);color:#8B5CF6;border:1px solid rgba(139,92,246,0.25)}
+.hero-sub{margin-top:1.5rem;color:var(--mid);font-size:0.95rem;line-height:1.8;max-width:420px}
+.hero-cta{margin-top:2rem;display:flex;gap:1rem}
+.btn{padding:.7rem 1.6rem;font-size:.82rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-radius:4px;cursor:pointer;text-decoration:none;transition:all .2s;font-family:'Space Grotesk',sans-serif;border:none}
+.btn-primary{background:var(--teal);color:#fff}
+.btn-primary:hover{background:#009aa2;transform:translateY(-2px)}
+.btn-ghost{border:1.5px solid var(--border);color:var(--dark);background:transparent}
+#hero-wrapper .btn-ghost{border:1.5px solid rgba(240,238,248,0.5);color:#F0EEF8;background:rgba(255,255,255,0.08);}
+#hero-wrapper .btn-ghost:hover{border-color:var(--teal);color:var(--teal);background:rgba(0,180,189,0.08);}
+.btn-ghost:hover{border-color:var(--teal);color:var(--teal)}
+
+/* Terminal mock */
+.terminal{background:var(--code-bg);border-radius:10px;overflow:hidden;box-shadow:0 20px 60px rgba(15,27,53,0.2);font-family:'JetBrains Mono',monospace}
+.term-bar{background:#1E2D4A;padding:.7rem 1rem;display:flex;align-items:center;gap:.5rem}
+.dot{width:11px;height:11px;border-radius:50%}
+.dot-r{background:#FF5F57}.dot-y{background:#FEBC2E}.dot-g{background:#28C840}
+.term-body{padding:1.5rem;font-size:.78rem;line-height:2}
+.t-prompt{color:#00B4BD}.t-cmd{color:#E8EAF0}.t-out{color:#6B8099}.t-val{color:#F9A825}.t-str{color:#66BB6A}.t-key{color:#42A5F5}
+
+/* ── SECTION BASE ── */
+section{padding:6rem 3rem}
+.inner{max-width:1100px;margin:0 auto}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);margin-bottom:.8rem}
+.sec-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:700;line-height:1.15;margin-bottom:2.5rem}
+
+/* ── STACK SECTION ── */
+#stack{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.stack-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.stack-card{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:1.8rem;transition:border-color .25s,transform .25s;position:relative;overflow:hidden}
+.stack-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--teal),var(--blue));opacity:0;transition:opacity .25s}
+.stack-card:hover{border-color:var(--teal);transform:translateY(-4px)}
+.stack-card:hover::before{opacity:1}
+.stack-icon{font-size:2rem;margin-bottom:1rem}
+.stack-card h3{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:1rem;margin-bottom:.5rem}
+.stack-card p{font-size:.83rem;color:var(--muted);line-height:1.6}
+.tech-pills{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:1rem}
+.pill{font-family:'JetBrains Mono',monospace;font-size:.66rem;padding:.2rem .55rem;border-radius:3px;background:rgba(37,99,235,0.08);color:var(--blue);border:1px solid rgba(37,99,235,0.2)}
+.pill.teal{background:rgba(0,180,189,0.08);color:var(--teal);border-color:rgba(0,180,189,0.25)}
+.pill.purple{background:rgba(139,92,246,0.08);color:#8B5CF6;border-color:rgba(139,92,246,0.25)}
+
+/* ── PROJECTS ── */
+#projects{background:var(--bg)}
+.projects-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2rem}
+.proj-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:box-shadow .25s,transform .25s}
+.proj-card:hover{box-shadow:0 12px 40px rgba(0,180,189,0.12);transform:translateY(-4px)}
+.proj-screen{height:180px;position:relative;overflow:hidden}
+.screen-laravel{background:linear-gradient(135deg,#1a2744 0%,#0f1b35 100%)}
+.screen-nextjs{background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%)}
+.screen-dx{background:linear-gradient(135deg,#003d40 0%,#00232a 100%)}
+.screen-api{background:linear-gradient(135deg,#1a0a2e 0%,#0f0520 100%)}
+.screen-flutter{background:linear-gradient(135deg,#0d47a1 0%,#1565c0 50%,#42a5f5 100%)}
+.screen-mfg{background:linear-gradient(135deg,#1b3a4b 0%,#0d2137 100%)}
+.screen-crm{background:linear-gradient(135deg,#2d1b69 0%,#1a0f3c 100%)}
+.screen-coach{background:linear-gradient(135deg,#1a3c2a 0%,#0f2518 100%)}
+
+/* Laravel mock UI */
+.mock-laravel{padding:1rem;height:100%;display:flex;flex-direction:column;gap:.5rem}
+.mock-topbar{background:rgba(0,180,189,0.15);border:1px solid rgba(0,180,189,0.2);border-radius:4px;padding:.4rem .7rem;display:flex;justify-content:space-between;align-items:center}
+.mock-topbar-title{font-family:'JetBrains Mono',monospace;font-size:.6rem;color:#00B4BD}
+.mock-nav-dots{display:flex;gap:.3rem}
+.mock-nav-dots span{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.15)}
+.mock-row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:.3rem;align-items:center}
+.mock-header-row{font-family:'JetBrains Mono',monospace;font-size:.55rem;color:rgba(0,180,189,0.6);padding:.3rem .4rem;border-bottom:1px solid rgba(0,180,189,0.1)}
+.mock-data-row{font-size:.58rem;color:rgba(255,255,255,0.5);padding:.25rem .4rem;background:rgba(255,255,255,0.02);border-radius:2px}
+.mock-badge{font-size:.5rem;padding:.15rem .4rem;border-radius:2px;font-family:'JetBrains Mono',monospace}
+.badge-green{background:rgba(40,200,130,0.15);color:#28C882}
+.badge-yellow{background:rgba(249,168,37,0.15);color:#F9A825}
+.badge-red{background:rgba(255,95,87,0.15);color:#FF5F57}
+.badge-blue{background:rgba(66,165,245,0.15);color:#42A5F5}
+
+/* Next.js mock UI */
+.mock-nextjs{padding:1rem;height:100%;display:flex;flex-direction:column;gap:.6rem}
+.mock-component{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:4px;padding:.5rem .7rem}
+.mock-component-label{font-family:'JetBrains Mono',monospace;font-size:.52rem;color:rgba(66,165,245,0.7);margin-bottom:.3rem}
+.mock-jsx-line{font-family:'JetBrains Mono',monospace;font-size:.58rem;color:rgba(255,255,255,0.4);line-height:1.5}
+.jsx-tag{color:#42A5F5}.jsx-prop{color:#F9A825}.jsx-str{color:#66BB6A}
+.mock-preview-bar{display:flex;gap:.4rem;margin-top:auto}
+.mock-btn-sm{font-size:.55rem;padding:.2rem .5rem;border-radius:2px;font-family:'JetBrains Mono',monospace;background:rgba(37,99,235,0.2);color:#42A5F5;border:1px solid rgba(37,99,235,0.3)}
+
+/* DX Dashboard mock */
+.mock-dx{padding:.8rem;height:100%;display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.mock-kpi{background:rgba(0,180,189,0.08);border:1px solid rgba(0,180,189,0.15);border-radius:4px;padding:.6rem;display:flex;flex-direction:column;justify-content:space-between}
+.mock-kpi-val{font-family:'Space Grotesk',sans-serif;font-size:1.3rem;font-weight:700;color:#00B4BD}
+.mock-kpi-label{font-size:.55rem;color:rgba(255,255,255,0.4);font-family:'JetBrains Mono',monospace;margin-top:.2rem}
+.mock-kpi-change{font-size:.52rem;color:#28C882;margin-top:.2rem}
+.mock-chart-area{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:4px;padding:.6rem;grid-column:1/-1;display:flex;align-items:flex-end;gap:.3rem;height:60px}
+.mock-bar{background:linear-gradient(180deg,rgba(0,180,189,0.8),rgba(0,180,189,0.2));border-radius:2px 2px 0 0;flex:1;transition:height .3s}
+
+/* API mock */
+.mock-api{padding:1rem;height:100%;display:flex;flex-direction:column;gap:.4rem}
+.mock-endpoint{display:flex;align-items:center;gap:.5rem;padding:.3rem .5rem;background:rgba(255,255,255,0.03);border-radius:3px;border:1px solid rgba(255,255,255,0.05)}
+.method{font-family:'JetBrains Mono',monospace;font-size:.55rem;padding:.15rem .35rem;border-radius:2px;min-width:38px;text-align:center;font-weight:500}
+.method-get{background:rgba(40,200,130,0.15);color:#28C882}
+.method-post{background:rgba(249,168,37,0.15);color:#F9A825}
+.method-put{background:rgba(66,165,245,0.15);color:#42A5F5}
+.method-del{background:rgba(255,95,87,0.15);color:#FF5F57}
+.endpoint-path{font-family:'JetBrains Mono',monospace;font-size:.6rem;color:rgba(255,255,255,0.45)}
+.mock-response{margin-top:auto;background:rgba(0,0,0,0.2);border-radius:3px;padding:.4rem .6rem;font-family:'JetBrains Mono',monospace;font-size:.58rem;color:#66BB6A}
+
+/* Flutter mock */
+.mock-flutter{padding:.8rem;height:100%;display:flex;flex-direction:column;gap:.4rem}
+.mock-phone{background:rgba(255,255,255,0.05);border:2px solid rgba(255,255,255,0.12);border-radius:16px;padding:.6rem;flex:1;display:flex;flex-direction:column;gap:.4rem}
+.mock-phone-status{display:flex;justify-content:space-between;font-size:.5rem;color:rgba(255,255,255,0.3);font-family:'JetBrains Mono',monospace}
+.mock-chat-bubble{padding:.35rem .6rem;border-radius:8px;font-size:.55rem;max-width:80%;line-height:1.4}
+.mock-chat-ai{background:rgba(0,180,189,0.2);color:#00E5EE;align-self:flex-start;border-bottom-left-radius:2px}
+.mock-chat-user{background:rgba(139,92,246,0.2);color:#C4B5FD;align-self:flex-end;border-bottom-right-radius:2px}
+.mock-chat-input{margin-top:auto;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:.3rem .6rem;font-size:.5rem;color:rgba(255,255,255,0.25);font-family:'JetBrains Mono',monospace}
+
+/* MFG mock */
+.mock-mfg{padding:.8rem;height:100%;display:flex;flex-direction:column;gap:.4rem}
+.mock-mfg-header{display:flex;justify-content:space-between;align-items:center}
+.mock-mfg-title{font-family:'JetBrains Mono',monospace;font-size:.6rem;color:#00B4BD}
+.mock-qr{width:28px;height:28px;border:1px solid rgba(0,180,189,0.3);border-radius:3px;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;padding:2px}
+.mock-qr span{background:rgba(0,180,189,0.5);border-radius:1px}
+.mock-process-row{display:flex;gap:.3rem;align-items:center}
+.mock-process-step{flex:1;height:6px;border-radius:3px;background:rgba(255,255,255,0.06)}
+.mock-process-step.active{background:linear-gradient(90deg,#00B4BD,#2563EB)}
+.mock-process-label{font-size:.48rem;color:rgba(255,255,255,0.35);font-family:'JetBrains Mono',monospace;min-width:40px}
+
+/* CRM mock */
+.mock-crm{padding:.6rem;height:100%;display:flex;gap:.4rem}
+.mock-kanban-col{flex:1;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:4px;padding:.4rem;display:flex;flex-direction:column;gap:.3rem}
+.mock-kanban-title{font-family:'JetBrains Mono',monospace;font-size:.48rem;color:rgba(255,255,255,0.4);text-align:center;padding-bottom:.3rem;border-bottom:1px solid rgba(255,255,255,0.06)}
+.mock-kanban-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:3px;padding:.3rem;font-size:.45rem;color:rgba(255,255,255,0.5);font-family:'JetBrains Mono',monospace}
+.mock-kanban-card .card-dot{display:inline-block;width:4px;height:4px;border-radius:50%;margin-right:3px}
+
+/* Coach mock */
+.mock-coach{padding:.8rem;height:100%;display:flex;flex-direction:column;gap:.4rem}
+.mock-athlete-row{display:flex;align-items:center;gap:.5rem;padding:.3rem .5rem;background:rgba(255,255,255,0.03);border-radius:4px;border:1px solid rgba(255,255,255,0.05)}
+.mock-avatar{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.5rem;color:#fff;font-weight:600}
+.mock-athlete-info{flex:1}
+.mock-athlete-name{font-size:.58rem;color:rgba(255,255,255,0.6);font-weight:500}
+.mock-athlete-stat{font-size:.48rem;color:rgba(255,255,255,0.3);font-family:'JetBrains Mono',monospace}
+
+.proj-body{padding:1.5rem}
+.proj-type{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--teal);margin-bottom:.5rem;letter-spacing:.1em}
+.proj-body h3{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:1.05rem;margin-bottom:.5rem}
+.proj-body p{font-size:.85rem;color:var(--mid);line-height:1.7;margin-bottom:1rem}
+.proj-tags{display:flex;flex-wrap:wrap;gap:.35rem}
+.proj-tag{font-family:'JetBrains Mono',monospace;font-size:.63rem;padding:.2rem .55rem;border-radius:3px;background:rgba(15,27,53,0.06);color:var(--mid);border:1px solid var(--border)}
+
+/* ── AI TOOLS ── */
+#aitools{background:var(--surface);border-top:1px solid var(--border)}
+.ai-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start}
+.ai-card{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:1.8rem}
+.ai-logo{font-family:'Space Grotesk',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:.6rem;display:flex;align-items:center;gap:.5rem}
+.ai-card p{font-size:.85rem;color:var(--mid);line-height:1.7}
+.ai-uses{margin-top:1rem;display:flex;flex-direction:column;gap:.4rem}
+.ai-use-item{display:flex;align-items:flex-start;gap:.5rem;font-size:.82rem;color:var(--mid)}
+.ai-use-item::before{content:'\2192';color:var(--teal);flex-shrink:0;margin-top:.05rem}
+
+/* ── STATS ── */
+#stats{background:linear-gradient(135deg,var(--dark) 0%,#1a2e55 100%);color:#fff}
+#stats .sec-title{color:#fff}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem}
+.stat-box{text-align:center;padding:1.5rem}
+.stat-num{font-family:'Space Grotesk',sans-serif;font-size:2.8rem;font-weight:700;color:var(--teal);line-height:1}
+.stat-unit{font-size:1.2rem;color:var(--teal)}
+.stat-label{font-size:.8rem;color:rgba(255,255,255,0.5);margin-top:.5rem;font-family:'Space Grotesk',sans-serif;letter-spacing:.06em;text-transform:uppercase}
+
+/* ── EXPERIENCE ── */
+#experience{background:var(--bg);border-top:1px solid var(--border)}
+.exp-timeline{position:relative;padding-left:2rem}
+.exp-timeline::before{content:'';position:absolute;left:6px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--teal),var(--blue),var(--teal))}
+.exp-item{position:relative;margin-bottom:2.5rem;padding-left:1.5rem}
+.exp-item::before{content:'';position:absolute;left:-2rem;top:.3rem;width:14px;height:14px;border-radius:50%;background:var(--surface);border:3px solid var(--teal);z-index:1}
+.exp-item:nth-child(even)::before{border-color:var(--blue)}
+.exp-year{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--teal);font-weight:500;margin-bottom:.3rem}
+.exp-item:nth-child(even) .exp-year{color:var(--blue)}
+.exp-title{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:1rem;margin-bottom:.3rem}
+.exp-desc{font-size:.85rem;color:var(--mid);line-height:1.7}
+.exp-tags{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.6rem}
+
+/* ── CONTACT ── */
+#contact{background:var(--bg);border-top:1px solid var(--border)}
+.contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.contact-info h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.8rem,3vw,2.4rem);font-weight:700;line-height:1.2;margin-bottom:1rem}
+.contact-info p{color:var(--mid);font-size:.9rem;line-height:1.8;margin-bottom:2rem}
+.contact-detail{display:flex;align-items:center;gap:.8rem;padding:.8rem 0;border-bottom:1px solid var(--border);font-size:.88rem}
+.contact-detail:last-of-type{border-bottom:none}
+.contact-icon{width:36px;height:36px;border-radius:6px;background:rgba(0,180,189,0.1);border:1px solid rgba(0,180,189,0.2);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.contact-label{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--muted);display:block}
+.contact-val{color:var(--dark);font-weight:500}
+.contact-avail{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:2rem}
+.avail-title{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:1rem;margin-bottom:1.2rem}
+.avail-item{display:flex;justify-content:space-between;align-items:center;padding:.7rem 0;border-bottom:1px solid var(--border);font-size:.85rem}
+.avail-item:last-child{border-bottom:none}
+.avail-status{font-size:.72rem;padding:.25rem .7rem;border-radius:3px;font-family:'JetBrains Mono',monospace;font-weight:500}
+.status-open{background:rgba(40,200,130,0.12);color:#16a34a;border:1px solid rgba(40,200,130,0.3)}
+.status-ask{background:rgba(249,168,37,0.12);color:#d97706;border:1px solid rgba(249,168,37,0.3)}
+
+footer{padding:2rem 3rem;background:var(--dark);display:flex;justify-content:space-between;align-items:center;font-size:.75rem;color:rgba(255,255,255,0.3);font-family:'Space Grotesk',sans-serif}
+footer a{color:rgba(0,180,189,0.7);text-decoration:none}
+
+/* FADE IN */
+.fade-up{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:768px){
+  nav{padding:1rem 1.5rem}
+  .nav-links{display:none}
+  #hero{grid-template-columns:1fr;padding:6rem 1.5rem 3rem;gap:2rem}
+  .terminal{display:none}
+  section{padding:4rem 1.5rem}
+  .stack-grid,.projects-grid,.ai-grid,.stats-row,.contact-wrap{grid-template-columns:1fr}
+  .exp-timeline{padding-left:1.5rem}
+  .exp-item{padding-left:1rem}
+  .exp-item::before{left:-1.5rem}
+  footer{flex-direction:column;gap:.5rem;text-align:center}
+}
+
+/* ── HERO BACKGROUND IMAGE ── */
+#hero-wrapper{
+  position:relative;
+  overflow:hidden;
+  background:#0F1B35;
+}
+#hero-wrapper::before{
+  content:'';
+  position:absolute;inset:0;
+  background:url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1600&auto=format&fit=crop&q=60') center/cover no-repeat;
+  opacity:0.12;
+  z-index:0;
+}
+#hero-wrapper::after{
+  content:'';
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(15,27,53,0.97) 0%,rgba(15,27,53,0.85) 50%,rgba(0,180,189,0.08) 100%);
+  z-index:1;
+}
+#hero-wrapper > *{position:relative;z-index:2;}
+#hero{color:#F0EEF8;}
+#hero h1{color:#F0EEF8;}
+#hero .hero-sub{color:rgba(240,238,248,0.75);}
+#hero .terminal{z-index:2;}
+
+/* ── ABOUT IMAGE SECTION ── */
+.about-img-section{
+  position:relative;
+  background:#0F1B35;
+  overflow:hidden;
+}
+.about-img-section::before{
+  content:'';
+  position:absolute;inset:0;
+  background:url('https://images.unsplash.com/photo-1553877522-43269d4ea984?w=1600&auto=format&fit=crop&q=60') center/cover no-repeat;
+  opacity:0.10;
+}
+.about-img-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:4rem;
+  align-items:center;
+  max-width:1100px;
+  margin:0 auto;
+  padding:6rem 3rem;
+  position:relative;
+  z-index:1;
+}
+.about-img-left h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:700;color:#F0EEF8;margin-bottom:1.5rem;line-height:1.15;}
+.about-img-left p{color:rgba(240,238,248,0.7);line-height:1.85;font-size:.95rem;margin-bottom:1rem;}
+.about-img-left strong{color:#00B4BD;}
+.about-card{background:rgba(255,255,255,0.05);border:1px solid rgba(0,180,189,0.2);border-radius:8px;padding:1.3rem 1.5rem;margin-bottom:1rem;transition:border-color .25s,transform .25s;}
+.about-card:hover{border-color:rgba(0,180,189,0.5);transform:translateX(4px);}
+.about-card-title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.9rem;color:#F0EEF8;margin-bottom:.4rem;}
+.about-card-desc{font-size:.82rem;color:rgba(240,238,248,0.55);line-height:1.6;}
+
+/* ── EXPERIENCE IMAGE BANNER ── */
+.exp-banner{
+  position:relative;
+  height:240px;
+  overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.exp-banner img{
+  width:100%;height:100%;object-fit:cover;object-position:center;
+  filter:brightness(0.3) saturate(0.7);
+}
+.exp-banner-text{
+  position:absolute;
+  text-align:center;
+  z-index:2;
+}
+.exp-banner-text h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.6rem,3vw,2.4rem);font-weight:700;color:#F0EEF8;margin-bottom:.5rem;}
+.exp-banner-text p{color:rgba(240,238,248,0.6);font-size:.9rem;}
+
+/* ── STATS DARK WITH IMAGE ── */
+#stats{
+  position:relative;
+  overflow:hidden;
+}
+#stats::before{
+  content:'';
+  position:absolute;inset:0;
+  background:url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1600&auto=format&fit=crop&q=60') center/cover no-repeat;
+  opacity:0.08;
+}
+#stats > *{position:relative;z-index:1;}
+
+/* ── CONTACT IMAGE ── */
+#contact{
+  position:relative;
+  overflow:hidden;
+}
+#contact::before{
+  content:'';
+  position:absolute;top:0;right:0;width:45%;height:100%;
+  background:url('https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&auto=format&fit=crop&q=60') center/cover no-repeat;
+  opacity:0.08;
+}
+
+/* ── PHOTO CARDS in About ── */
+.photo-stack{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1rem;
+}
+.photo-card{
+  border-radius:8px;
+  overflow:hidden;
+  position:relative;
+  aspect-ratio:4/3;
+}
+.photo-card img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .4s;
+  filter:brightness(0.85) saturate(0.9);
+}
+.photo-card:hover img{transform:scale(1.05);}
+.photo-card-label{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:.6rem .8rem;
+  background:linear-gradient(0deg,rgba(15,27,53,0.9),transparent);
+  font-family:'JetBrains Mono',monospace;
+  font-size:.62rem;color:#00B4BD;
+  letter-spacing:.08em;
+}
+
+@media(max-width:768px){
+  .about-img-grid{grid-template-columns:1fr;padding:4rem 1.5rem;}
+  .photo-stack{grid-template-columns:1fr;}
+  .exp-banner{height:160px;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#hero" class="nav-logo" style="display:flex;align-items:center;gap:.6rem;text-decoration:none">
+    <svg width="31" height="45" viewBox="0 0 63 90" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="4.0" cy="86.5" r="3" fill="#1B2E6B"/>
+      <circle cx="9.5" cy="86.5" r="3" fill="#1B2E6B"/>
+      <circle cx="4.0" cy="81.0" r="3" fill="#1B2E6B"/>
+      <circle cx="9.5" cy="81.0" r="3" fill="#1B2E6B"/>
+      <circle cx="4.0" cy="75.5" r="3" fill="#1B2E6B"/>
+      <circle cx="9.5" cy="75.5" r="3" fill="#1B2E6B"/>
+      <circle cx="4.0" cy="70.0" r="3" fill="#1B2E6B"/>
+      <circle cx="9.5" cy="70.0" r="3" fill="#1B2E6B"/>
+      <circle cx="4.0" cy="64.5" r="3" fill="#1B2E6B"/>
+      <circle cx="9.5" cy="64.5" r="3" fill="#1B2E6B"/>
+      <circle cx="4.0" cy="59.0" r="3" fill="#1B2E6B"/>
+      <circle cx="9.5" cy="59.0" r="3" fill="#1B2E6B"/>
+      <circle cx="4.0" cy="53.5" r="3" fill="#1B2E6B"/>
+      <circle cx="9.5" cy="53.5" r="3" fill="#1B2E6B"/>
+      <circle cx="4.0" cy="48.0" r="3" fill="#1B2E6B"/>
+      <circle cx="9.5" cy="48.0" r="3" fill="#1B2E6B"/>
+      <circle cx="4.0" cy="42.5" r="3" fill="#1B2E6B"/>
+      <circle cx="9.5" cy="42.5" r="3" fill="#1B2E6B"/>
+      <circle cx="4.0" cy="37.0" r="3" fill="#1B2E6B"/>
+      <circle cx="9.5" cy="37.0" r="3" fill="#1B2E6B"/>
+      <circle cx="4.0" cy="31.5" r="3" fill="#1B2E6B"/>
+      <circle cx="9.5" cy="31.5" r="3" fill="#1B2E6B"/>
+      <circle cx="4.0" cy="26.0" r="3" fill="#1B2E6B"/>
+      <circle cx="9.5" cy="26.0" r="3" fill="#1B2E6B"/>
+      <circle cx="4.0" cy="20.5" r="3" fill="#1B2E6B"/>
+      <circle cx="9.5" cy="20.5" r="3" fill="#1B2E6B"/>
+      <circle cx="4.0" cy="15.0" r="3" fill="#1B2E6B"/>
+      <circle cx="9.5" cy="15.0" r="3" fill="#1B2E6B"/>
+      <circle cx="4.0" cy="9.5" r="3" fill="#1B2E6B"/>
+      <circle cx="9.5" cy="9.5" r="3" fill="#1B2E6B"/>
+      <circle cx="4.0" cy="4.0" r="3" fill="#1B2E6B"/>
+      <circle cx="9.5" cy="4.0" r="3" fill="#1B2E6B"/>
+      <circle cx="15.0" cy="53.5" r="3" fill="#5BA3D9"/>
+      <circle cx="20.5" cy="59.0" r="3" fill="#5BA3D9"/>
+      <circle cx="26.0" cy="64.5" r="3" fill="#5BA3D9"/>
+      <circle cx="31.5" cy="70.0" r="3" fill="#5BA3D9"/>
+      <circle cx="37.0" cy="75.5" r="3" fill="#5BA3D9"/>
+      <circle cx="42.5" cy="75.5" r="3" fill="#5BA3D9"/>
+      <circle cx="42.5" cy="81.0" r="3" fill="#5BA3D9"/>
+      <circle cx="48.0" cy="81.0" r="3" fill="#5BA3D9"/>
+      <circle cx="48.0" cy="86.5" r="3" fill="#5BA3D9"/>
+      <circle cx="53.5" cy="86.5" r="3" fill="#5BA3D9"/>
+      <circle cx="15.0" cy="37.0" r="3" fill="#2A5298"/>
+      <circle cx="20.5" cy="31.5" r="3" fill="#2A5298"/>
+      <circle cx="26.0" cy="26.0" r="3" fill="#2A5298"/>
+      <circle cx="31.5" cy="20.5" r="3" fill="#2A5298"/>
+      <circle cx="37.0" cy="15.0" r="3" fill="#2A5298"/>
+      <circle cx="42.5" cy="15.0" r="3" fill="#2A5298"/>
+      <circle cx="42.5" cy="9.5" r="3" fill="#2A5298"/>
+      <circle cx="48.0" cy="9.5" r="3" fill="#2A5298"/>
+      <circle cx="48.0" cy="4.0" r="3" fill="#2A5298"/>
+      <circle cx="53.5" cy="4.0" r="3" fill="#2A5298"/>
+      <circle cx="59.0" cy="4.0" r="3" fill="#2A5298"/>
+      <circle cx="15.0" cy="48.0" r="3" fill="#1B2E6B"/>
+    </svg>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#stack">技術スタック</a></li>
+    <li><a href="#projects">開発実績</a></li>
+    <li><a href="#experience">経歴</a></li>
+    <li><a href="#aitools">AI活用</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div id="hero-wrapper"><section id="hero" style="padding-top:8rem;max-width:none">
+<div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;padding:0 3rem">
+  <div>
+    <div class="hero-tag">Available for freelance & consulting</div>
+    <h1>Yoshinori<br><span class="teal">Kitagawa</span></h1>
+    <div class="hero-roles" style="margin-top:1rem">
+      <span class="role-chip chip-teal">システムエンジニア</span>
+      <span class="role-chip chip-blue">フルスタック開発者</span>
+      <span class="role-chip chip-teal">DXアドバイザー</span>
+      <span class="role-chip chip-purple">モバイルアプリ開発</span>
+    </div>
+    <p class="hero-sub">フロントエンドからバックエンド、AWS/GCPインフラ構築まで対応するフルスタック開発者。要件定義・テーブル設計などの上流工程から実装・テスト・運用まで一気通貫で担当。AI駆動の開発手法で、企業のデジタル変革を加速します。</p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn btn-primary">お問い合わせ</a>
+      <a href="#projects" class="btn btn-ghost">開発実績を見る</a>
+    </div>
+  </div>
+  <!-- Terminal -->
+  <div class="terminal">
+    <div class="term-bar">
+      <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:.65rem;color:#6B8099;margin-left:.5rem">~/kitagawa-dx</span>
+    </div>
+    <div class="term-body">
+      <div><span class="t-prompt">&#10095; </span><span class="t-cmd">whoami</span></div>
+      <div class="t-out">Yoshinori Kitagawa &#8212; Full-Stack SE / DX Developer & Advisor</div>
+      <div style="margin-top:.5rem"><span class="t-prompt">&#10095; </span><span class="t-cmd">cat skills.json</span></div>
+      <div><span class="t-key">"backend"</span><span class="t-out">: [</span><span class="t-str">"Laravel"</span><span class="t-out">, </span><span class="t-str">"PHP 8.3"</span><span class="t-out">, </span><span class="t-str">"MySQL"</span><span class="t-out">],</span></div>
+      <div><span class="t-key">"frontend"</span><span class="t-out">: [</span><span class="t-str">"TypeScript"</span><span class="t-out">, </span><span class="t-str">"React 19"</span><span class="t-out">, </span><span class="t-str">"Next.js"</span><span class="t-out">],</span></div>
+      <div><span class="t-key">"mobile"</span><span class="t-out">: [</span><span class="t-str">"Flutter"</span><span class="t-out">, </span><span class="t-str">"Dart"</span><span class="t-out">],</span></div>
+      <div><span class="t-key">"aws"</span><span class="t-out">: [</span><span class="t-str">"EC2"</span><span class="t-out">, </span><span class="t-str">"RDS"</span><span class="t-out">, </span><span class="t-str">"Route53"</span><span class="t-out">, </span><span class="t-str">"Lambda"</span><span class="t-out">],</span></div>
+      <div><span class="t-key">"infra"</span><span class="t-out">: [</span><span class="t-str">"GCP"</span><span class="t-out">, </span><span class="t-str">"Docker"</span><span class="t-out">, </span><span class="t-str">"GitHub Actions"</span><span class="t-out">],</span></div>
+      <div><span class="t-key">"ai"</span><span class="t-out">: [</span><span class="t-str">"Claude API"</span><span class="t-out">, </span><span class="t-str">"AI-Driven Dev"</span><span class="t-out">],</span></div>
+      <div><span class="t-key">"scope"</span><span class="t-out">: </span><span class="t-str">"要件定義 → 設計 → 実装 → 運用"</span><span class="t-out">,</span></div>
+      <div><span class="t-key">"focus"</span><span class="t-out">: </span><span class="t-str">"Full-Stack / DX / Business Systems"</span></div>
+      <div style="margin-top:.5rem"><span class="t-prompt">&#10095; </span><span class="t-val">&#9608;</span></div>
+    </div>
+  </div>
+</div>
+</section></div>
+
+<!-- STATS -->
+<section id="stats">
+  <div class="inner">
+    <div class="stats-row">
+      <div class="stat-box fade-up">
+        <div class="stat-num">10<span class="stat-unit">&#24180;+</span></div>
+        <div class="stat-label">開発経験</div>
+      </div>
+      <div class="stat-box fade-up">
+        <div class="stat-num">30<span class="stat-unit">+</span></div>
+        <div class="stat-label">業務システム構築</div>
+      </div>
+      <div class="stat-box fade-up">
+        <div class="stat-num">5<span class="stat-unit">&#31038;+</span></div>
+        <div class="stat-label">DX支援実績</div>
+      </div>
+      <div class="stat-box fade-up">
+        <div class="stat-num">AI<span class="stat-unit" style="font-size:.9rem">&#39366;&#21205;</span></div>
+        <div class="stat-label">AI活用開発</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ABOUT WITH IMAGE -->
+<section class="about-img-section">
+  <div class="about-img-grid">
+    <div class="about-img-left">
+      <p class="eyebrow" style="color:var(--teal)">About</p>
+      <h2>こんなお悩み、<br>一緒に解決します。</h2>
+      <p>10年以上にわたり、製造業・小売業・サービス業など多業種の企業向けに業務システム開発とDX推進を手がけてきました。<strong>要件定義からリリース・運用まで一気通貫で担当できること</strong>が最大の強みです。</p>
+      <p>「開発会社に丸投げ」ではなく、<strong>現場のビジネス課題を深く理解したうえで最適解を提案・実装</strong>し、定着化まで伴走します。</p>
+      <div class="about-card">
+        <div class="about-card-title">🏭 製造業ERP — 原価管理70%削減</div>
+        <div class="about-card-desc">受注〜BOM〜原価〜出荷の全フローをゼロから設計・構築。QRコードによるリアルタイム工程管理を実現。</div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-title">🛋️ アフターサービス管理 — 月200時間削減</div>
+        <div class="about-card-desc">修理・配送・請求を一元化。CSV自動出力・PDF自動生成で手作業を完全撤廃。</div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-title">📱 AIモバイルアプリ — Claude API + Flutter</div>
+        <div class="about-card-desc">音声合成・ベクトル記憶を組み合わせたAIキャラクター会話アプリをフルスクラッチで開発・リリース。</div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-title">📉 DX推進コンサル — 平均34%業務削減</div>
+        <div class="about-card-desc">5社以上の企業でExcel業務をシステム化。現場定着率ほぼ100%の伴走支援。</div>
+      </div>
+    </div>
+    <div class="photo-stack">
+      <div class="photo-card">
+        <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&auto=format&fit=crop&q=70" alt="開発作業" loading="lazy"/>
+        <div class="photo-card-label">Full-Stack Development</div>
+      </div>
+      <div class="photo-card">
+        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&auto=format&fit=crop&q=70" alt="データ分析" loading="lazy"/>
+        <div class="photo-card-label">Data & Analytics</div>
+      </div>
+      <div class="photo-card">
+        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&auto=format&fit=crop&q=70" alt="チームワーク" loading="lazy"/>
+        <div class="photo-card-label">Team Consulting</div>
+      </div>
+      <div class="photo-card">
+        <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&auto=format&fit=crop&q=70" alt="モバイル開発" loading="lazy"/>
+        <div class="photo-card-label">Mobile App Dev</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECH STACK -->
+<section id="stack">
+  <div class="inner">
+    <p class="eyebrow">Tech Stack</p>
+    <h2 class="sec-title">技術スタック</h2>
+    <div class="stack-grid">
+      <div class="stack-card fade-up">
+        <div class="stack-icon">&#9881;&#65039;</div>
+        <h3>バックエンド</h3>
+        <p>Laravel 12/13による業務システム設計。RESTful API・Inertia.js SPA・認証/権限管理・バッチ処理・PDF/CSV帳票生成まで対応。</p>
+        <div class="tech-pills">
+          <span class="pill teal">Laravel 12/13</span>
+          <span class="pill teal">PHP 8.3</span>
+          <span class="pill">MySQL</span>
+          <span class="pill">Redis</span>
+          <span class="pill">Sanctum</span>
+          <span class="pill">Fortify</span>
+          <span class="pill">Inertia.js</span>
+          <span class="pill">Spatie Permission</span>
+          <span class="pill">DomPDF</span>
+        </div>
+      </div>
+      <div class="stack-card fade-up">
+        <div class="stack-icon">&#9883;&#65039;</div>
+        <h3>フロントエンド</h3>
+        <p>TypeScript + React 19 / Next.jsで型安全なUI開発。TanStack Query・Zustand・React Hook Form + Zodによるモダンなフォーム/状態管理。</p>
+        <div class="tech-pills">
+          <span class="pill">TypeScript</span>
+          <span class="pill">React 19</span>
+          <span class="pill">Next.js</span>
+          <span class="pill teal">Tailwind CSS</span>
+          <span class="pill">shadcn/ui</span>
+          <span class="pill">TanStack Query</span>
+          <span class="pill">Zustand</span>
+          <span class="pill">Zod</span>
+          <span class="pill">Recharts</span>
+        </div>
+      </div>
+      <div class="stack-card fade-up">
+        <div class="stack-icon">&#128241;</div>
+        <h3>モバイル開発</h3>
+        <p>Flutter / Dartによるクロスプラットフォームアプリ開発。Clean Architecture + BLoCパターンで保守性の高い設計。iOS/Android同時対応。</p>
+        <div class="tech-pills">
+          <span class="pill purple">Flutter</span>
+          <span class="pill purple">Dart</span>
+          <span class="pill">BLoC Pattern</span>
+          <span class="pill">Supabase</span>
+          <span class="pill teal">RevenueCat</span>
+          <span class="pill">go_router</span>
+          <span class="pill">Clean Architecture</span>
+        </div>
+      </div>
+      <div class="stack-card fade-up">
+        <div class="stack-icon">&#129302;</div>
+        <h3>AI駆動開発</h3>
+        <p>Claude API / Anthropic SDKを活用したAIアプリ開発。音声合成連携・プロンプトエンジニアリング・AI駆動の開発ワークフロー構築。</p>
+        <div class="tech-pills">
+          <span class="pill teal">Claude API</span>
+          <span class="pill teal">Claude Code</span>
+          <span class="pill">Anthropic SDK</span>
+          <span class="pill">ElevenLabs API</span>
+          <span class="pill">Prompt Engineering</span>
+          <span class="pill">pgvector</span>
+        </div>
+      </div>
+      <div class="stack-card fade-up">
+        <div class="stack-icon">&#9729;&#65039;</div>
+        <h3>AWS クラウドインフラ</h3>
+        <p>EC2・RDS・Route53・Lambdaを活用したAWSインフラ構築。サーバー構築からDB運用、ドメイン管理、サーバーレス処理まで対応。本番環境の設計・構築・運用を一気通貫で担当。</p>
+        <div class="tech-pills">
+          <span class="pill purple">EC2</span>
+          <span class="pill purple">RDS</span>
+          <span class="pill purple">Route53</span>
+          <span class="pill purple">Lambda</span>
+          <span class="pill">S3</span>
+          <span class="pill">CloudFront</span>
+          <span class="pill">IAM</span>
+        </div>
+      </div>
+      <div class="stack-card fade-up">
+        <div class="stack-icon">&#9881;&#65039;</div>
+        <h3>GCP / DevOps</h3>
+        <p>Docker + Cloud Runによるコンテナデプロイ。GitHub Actionsで自動ビルド・テスト・デプロイのCI/CDパイプライン構築。</p>
+        <div class="tech-pills">
+          <span class="pill">Docker</span>
+          <span class="pill teal">Google Cloud Run</span>
+          <span class="pill">GitHub Actions</span>
+          <span class="pill">Secret Manager</span>
+          <span class="pill">GitHub</span>
+          <span class="pill teal">Linux</span>
+          <span class="pill">Vite</span>
+        </div>
+      </div>
+      <div class="stack-card fade-up">
+        <div class="stack-icon">&#128202;</div>
+        <h3>上流設計 / DXアドバイザリー</h3>
+        <p>要件定義・テーブル設計（ER図）・画面設計から実装・テスト・運用まで、上流〜下流の全工程をカバー。業務プロセス分析とデジタル化戦略立案も対応。</p>
+        <div class="tech-pills">
+          <span class="pill teal">要件定義</span>
+          <span class="pill teal">テーブル設計</span>
+          <span class="pill teal">ER図</span>
+          <span class="pill">画面設計</span>
+          <span class="pill">業務分析</span>
+          <span class="pill">DX戦略</span>
+          <span class="pill">研修設計</span>
+          <span class="pill">運用設計</span>
+        </div>
+      </div>
+      <div class="stack-card fade-up">
+        <div class="stack-icon">&#128274;</div>
+        <h3>認証 / セキュリティ</h3>
+        <p>二要素認証（Google2FA）・ロールベースアクセス制御・Row Level Security。企業要件に応じた堅牢な認証基盤を設計。</p>
+        <div class="tech-pills">
+          <span class="pill">Google 2FA</span>
+          <span class="pill">Sanctum</span>
+          <span class="pill teal">Spatie Permission</span>
+          <span class="pill">Supabase RLS</span>
+          <span class="pill">RBAC</span>
+        </div>
+      </div>
+      <div class="stack-card fade-up">
+        <div class="stack-icon">&#128196;</div>
+        <h3>帳票 / データ連携</h3>
+        <p>PDF帳票自動生成・CSV一括出力・外部システム連携。請求書・報告書・配送伝票データなどの業務帳票をシステム化。</p>
+        <div class="tech-pills">
+          <span class="pill">DomPDF</span>
+          <span class="pill">League CSV</span>
+          <span class="pill teal">Excel出力</span>
+          <span class="pill">API連携</span>
+          <span class="pill">データ移行</span>
+          <span class="pill">QRコード</span>
+        </div>
+      </div>
+      <div class="stack-card fade-up">
+        <div class="stack-icon">&#128295;</div>
+        <h3>テスト / 品質</h3>
+        <p>PHPUnit・Pestによるバックエンドテスト、Vitest・bloc_testによるフロントエンド/モバイルテスト。TDD実践で品質担保。</p>
+        <div class="tech-pills">
+          <span class="pill">PHPUnit</span>
+          <span class="pill teal">Pest</span>
+          <span class="pill">Vitest</span>
+          <span class="pill">bloc_test</span>
+          <span class="pill">mocktail</span>
+          <span class="pill">ESLint</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="inner">
+    <p class="eyebrow">Projects</p>
+    <h2 class="sec-title">開発実績</h2>
+    <div class="projects-grid">
+
+      <!-- Furniture Trouble Management -->
+      <div class="proj-card fade-up">
+        <div class="proj-screen screen-laravel">
+          <div class="mock-laravel">
+            <div class="mock-topbar">
+              <span class="mock-topbar-title">Furniture Trouble Management &#8212; Cloud Run</span>
+              <div class="mock-nav-dots"><span></span><span></span><span></span></div>
+            </div>
+            <div class="mock-row mock-header-row">
+              <span>&#26696;&#20214;&#30058;&#21495;</span><span>&#23550;&#24540;&#31278;&#21029;</span><span>&#12473;&#12486;&#12540;&#12479;&#12473;</span><span>&#25285;&#24403;</span>
+            </div>
+            <div class="mock-row mock-data-row">
+              <span>TC-2024-0892</span><span>&#20489;&#24235;&#20462;&#29702;</span>
+              <span class="mock-badge badge-green">&#23436;&#20102;</span><span>&#21271;&#24029;</span>
+            </div>
+            <div class="mock-row mock-data-row">
+              <span>TC-2024-0893</span><span>&#35370;&#21839;&#20462;&#29702;</span>
+              <span class="mock-badge badge-yellow">&#35370;&#21839;&#24453;&#12385;</span><span>&#30000;&#20013;</span>
+            </div>
+            <div class="mock-row mock-data-row">
+              <span>TC-2024-0894</span><span>&#12497;&#12540;&#12484;&#36865;&#20184;</span>
+              <span class="mock-badge badge-blue">&#20986;&#33655;&#28310;&#20633;</span><span>&#37428;&#26408;</span>
+            </div>
+            <div class="mock-row mock-data-row">
+              <span>TC-2024-0895</span><span>ASD&#37197;&#36865;</span>
+              <span class="mock-badge badge-red">&#35201;&#23550;&#24540;</span><span>&#21271;&#24029;</span>
+            </div>
+          </div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-type">Enterprise &#183; Laravel 13 &#183; Cloud Run</div>
+          <h3>家具アフターサービス トラブル管理システム</h3>
+          <p>30テーブル・5ロールの大規模業務システム。案件管理・訪問修理予定・在庫管理・ゆうパック/ASD配送CSV出力・月次請求書PDF自動生成まで一元管理。Docker + Cloud Run + GitHub Actionsで本番デプロイ。</p>
+          <div class="proj-tags">
+            <span class="proj-tag">Laravel 13</span>
+            <span class="proj-tag">React 19</span>
+            <span class="proj-tag">Inertia.js</span>
+            <span class="proj-tag">TypeScript</span>
+            <span class="proj-tag">Fortify</span>
+            <span class="proj-tag">DomPDF</span>
+            <span class="proj-tag">Spatie Permission</span>
+            <span class="proj-tag">Cloud Run</span>
+            <span class="proj-tag">Docker</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Manufacturing System -->
+      <div class="proj-card fade-up">
+        <div class="proj-screen screen-mfg">
+          <div class="mock-mfg">
+            <div class="mock-mfg-header">
+              <span class="mock-mfg-title">Manufacturing Core &#8212; Dashboard</span>
+              <div class="mock-qr"><span></span><span></span><span style="background:transparent"></span><span></span><span style="background:transparent"></span><span></span><span></span><span style="background:transparent"></span><span></span><span></span><span style="background:transparent"></span><span></span><span></span><span style="background:transparent"></span><span></span><span></span></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.3rem;margin-top:.3rem">
+              <div style="background:rgba(0,180,189,0.1);border:1px solid rgba(0,180,189,0.2);border-radius:3px;padding:.3rem;text-align:center">
+                <div style="font-size:.9rem;font-weight:700;color:#00B4BD;font-family:'Space Grotesk',sans-serif">24</div>
+                <div style="font-size:.45rem;color:rgba(255,255,255,0.35);font-family:'JetBrains Mono',monospace">&#21463;&#27880;</div>
+              </div>
+              <div style="background:rgba(37,99,235,0.1);border:1px solid rgba(37,99,235,0.2);border-radius:3px;padding:.3rem;text-align:center">
+                <div style="font-size:.9rem;font-weight:700;color:#42A5F5;font-family:'Space Grotesk',sans-serif">18</div>
+                <div style="font-size:.45rem;color:rgba(255,255,255,0.35);font-family:'JetBrains Mono',monospace">&#35069;&#36896;&#20013;</div>
+              </div>
+              <div style="background:rgba(40,200,130,0.1);border:1px solid rgba(40,200,130,0.2);border-radius:3px;padding:.3rem;text-align:center">
+                <div style="font-size:.9rem;font-weight:700;color:#28C882;font-family:'Space Grotesk',sans-serif">156</div>
+                <div style="font-size:.45rem;color:rgba(255,255,255,0.35);font-family:'JetBrains Mono',monospace">&#23436;&#20102;</div>
+              </div>
+            </div>
+            <div style="margin-top:.4rem">
+              <div class="mock-process-row"><span class="mock-process-label">&#21463;&#27880;</span><span class="mock-process-step active"></span><span class="mock-process-step active"></span><span class="mock-process-step active"></span><span class="mock-process-step"></span></div>
+              <div class="mock-process-row" style="margin-top:.2rem"><span class="mock-process-label">&#21152;&#24037;</span><span class="mock-process-step active"></span><span class="mock-process-step active"></span><span class="mock-process-step"></span><span class="mock-process-step"></span></div>
+              <div class="mock-process-row" style="margin-top:.2rem"><span class="mock-process-label">&#26908;&#21697;</span><span class="mock-process-step active"></span><span class="mock-process-step"></span><span class="mock-process-step"></span><span class="mock-process-step"></span></div>
+            </div>
+            <div style="margin-top:auto;display:flex;gap:.3rem">
+              <span class="mock-btn-sm" style="background:rgba(0,180,189,0.15);color:#00B4BD;border-color:rgba(0,180,189,0.3)">QR&#12473;&#12461;&#12515;&#12531;</span>
+              <span class="mock-btn-sm">BOM&#31649;&#29702;</span>
+              <span class="mock-btn-sm">&#21407;&#20385;&#35336;&#31639;</span>
+            </div>
+          </div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-type">Full-Stack &#183; Laravel 12 &#183; React 19 &#183; 2FA</div>
+          <h3>製造業基幹システム</h3>
+          <p>受注・製造工程・BOM（部品表）・仕入発注・原価管理をカバーする基幹システム。React 19 + TanStack Query + Zustandでリアクティブなフロントエンド。QRコード読取・二要素認証（Google2FA）対応。</p>
+          <div class="proj-tags">
+            <span class="proj-tag">Laravel 12</span>
+            <span class="proj-tag">React 19</span>
+            <span class="proj-tag">TypeScript</span>
+            <span class="proj-tag">TanStack Query</span>
+            <span class="proj-tag">Zustand</span>
+            <span class="proj-tag">Recharts</span>
+            <span class="proj-tag">Google 2FA</span>
+            <span class="proj-tag">QR&#12467;&#12540;&#12489;</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Flutter AI App -->
+      <div class="proj-card fade-up">
+        <div class="proj-screen screen-flutter">
+          <div class="mock-flutter">
+            <div class="mock-phone">
+              <div class="mock-phone-status">
+                <span>9:41</span>
+                <span>&#9679; &#9679; &#9679;</span>
+              </div>
+              <div class="mock-chat-bubble mock-chat-ai">&#12371;&#12435;&#12395;&#12385;&#12399;&#65281;&#20170;&#26085;&#12399;&#12393;&#12435;&#12394;&#12362;&#35441;&#12364;&#12375;&#12383;&#12356;&#12391;&#12377;&#12363;&#65311; &#x1f31f;</div>
+              <div class="mock-chat-bubble mock-chat-user">&#26368;&#36817;&#12495;&#12510;&#12387;&#12390;&#12427;&#26354;&#12434;&#25945;&#12360;&#12390;&#65281;</div>
+              <div class="mock-chat-bubble mock-chat-ai">&#12356;&#12356;&#12391;&#12377;&#12397;&#65281;&#38899;&#27005;&#12398;&#35441;&#22823;&#22909;&#12365;&#12391;&#12377; &#x1f3b5;</div>
+              <div class="mock-chat-input">&#12513;&#12483;&#12475;&#12540;&#12472;&#12434;&#20837;&#21147;... &#127908;</div>
+            </div>
+          </div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-type">Mobile &#183; Flutter &#183; Claude API &#183; Supabase</div>
+          <h3>AI&#12461;&#12515;&#12521;&#12463;&#12479;&#12540;&#20250;&#35441;&#12450;&#12503;&#12522;</h3>
+          <p>Flutter + Claude APIで構築したAI会話モバイルアプリ。ユーザーがオリジナルキャラクターを作成し、テキスト・音声（ElevenLabs）で会話。Supabase + pgvectorで会話記憶。RevenueCatによるサブスクリプション課金。Clean Architecture + BLoCパターンで設計。</p>
+          <div class="proj-tags">
+            <span class="proj-tag">Flutter</span>
+            <span class="proj-tag">Dart</span>
+            <span class="proj-tag">Claude API</span>
+            <span class="proj-tag">ElevenLabs</span>
+            <span class="proj-tag">Supabase</span>
+            <span class="proj-tag">pgvector</span>
+            <span class="proj-tag">RevenueCat</span>
+            <span class="proj-tag">BLoC</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CRM Kanban -->
+      <div class="proj-card fade-up">
+        <div class="proj-screen screen-crm">
+          <div class="mock-crm">
+            <div class="mock-kanban-col">
+              <div class="mock-kanban-title">&#21463;&#20184;</div>
+              <div class="mock-kanban-card"><span class="card-dot" style="background:#F9A825"></span>&#12497;&#12540;&#12484;&#20132;&#25563; A&#27096;</div>
+              <div class="mock-kanban-card"><span class="card-dot" style="background:#42A5F5"></span>&#20462;&#29702;&#30456;&#35527; B&#27096;</div>
+            </div>
+            <div class="mock-kanban-col">
+              <div class="mock-kanban-title">&#23550;&#24540;&#20013;</div>
+              <div class="mock-kanban-card"><span class="card-dot" style="background:#00B4BD"></span>&#26908;&#21697;&#23436;&#20102; C&#27096;</div>
+              <div class="mock-kanban-card"><span class="card-dot" style="background:#FF5F57"></span>&#32202;&#24613;&#20462;&#29702; D&#27096;</div>
+              <div class="mock-kanban-card"><span class="card-dot" style="background:#28C882"></span>&#37197;&#36865;&#25163;&#37197; E&#27096;</div>
+            </div>
+            <div class="mock-kanban-col">
+              <div class="mock-kanban-title">&#23436;&#20102;</div>
+              <div class="mock-kanban-card"><span class="card-dot" style="background:#28C882"></span>&#20986;&#33655;&#28168;&#12415; F&#27096;</div>
+            </div>
+          </div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-type">Full-Stack &#183; Laravel 13 &#183; Kanban &#183; QR</div>
+          <h3>&#12450;&#12501;&#12479;&#12540;&#12469;&#12540;&#12499;&#12473;CRM</h3>
+          <p>Kanbanボードによる案件進捗管理。ドラッグ&ドロップでステータス更新、QRコードスキャンによる在庫管理、請求データ管理を統合したCRMシステム。</p>
+          <div class="proj-tags">
+            <span class="proj-tag">Laravel 13</span>
+            <span class="proj-tag">React 19</span>
+            <span class="proj-tag">Inertia.js</span>
+            <span class="proj-tag">TypeScript</span>
+            <span class="proj-tag">DnD</span>
+            <span class="proj-tag">QR&#12473;&#12461;&#12515;&#12531;</span>
+            <span class="proj-tag">Kanban</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- DX Dashboard -->
+      <div class="proj-card fade-up">
+        <div class="proj-screen screen-dx">
+          <div class="mock-dx">
+            <div class="mock-kpi">
+              <div>
+                <div class="mock-kpi-val">87<span style="font-size:.9rem">%</span></div>
+                <div class="mock-kpi-label">&#26989;&#21209;&#21177;&#29575;&#21270;&#29575;</div>
+              </div>
+              <div class="mock-kpi-change">&#9650; 34% &#25913;&#21892;</div>
+            </div>
+            <div class="mock-kpi">
+              <div>
+                <div class="mock-kpi-val">2.4<span style="font-size:.9rem">h</span></div>
+                <div class="mock-kpi-label">&#26085;&#27425;&#21066;&#28187;&#26178;&#38291;</div>
+              </div>
+              <div class="mock-kpi-change">&#9650; 1.8h&#21066;&#28187;</div>
+            </div>
+            <div class="mock-chart-area">
+              <div class="mock-bar" style="height:30%"></div>
+              <div class="mock-bar" style="height:45%"></div>
+              <div class="mock-bar" style="height:40%"></div>
+              <div class="mock-bar" style="height:65%"></div>
+              <div class="mock-bar" style="height:58%"></div>
+              <div class="mock-bar" style="height:80%"></div>
+              <div class="mock-bar" style="height:87%"></div>
+            </div>
+          </div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-type">DX Advisory &#183; &#26989;&#21209;&#25913;&#21892;</div>
+          <h3>&#26989;&#21209;&#12503;&#12525;&#12475;&#12473;DX&#21270;&#25903;&#25588;</h3>
+          <p>紙・Excelベースの業務をシステム化。現場ヒアリング&#8594;要件定義&#8594;システム選定&#8594;導入&#8594;定着化まで一気通貫で支援。業務時間を平均34%削減。</p>
+          <div class="proj-tags">
+            <span class="proj-tag">&#26989;&#21209;&#20998;&#26512;</span>
+            <span class="proj-tag">&#35201;&#20214;&#23450;&#32681;</span>
+            <span class="proj-tag">&#12471;&#12473;&#12486;&#12512;&#36984;&#23450;</span>
+            <span class="proj-tag">&#30740;&#20462;&#35373;&#35336;</span>
+            <span class="proj-tag">&#23450;&#30528;&#25903;&#25588;</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coach Connect -->
+      <div class="proj-card fade-up">
+        <div class="proj-screen screen-coach">
+          <div class="mock-coach">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:.58rem;color:#28C882;margin-bottom:.3rem">Coach Connect &#8212; Athletes</div>
+            <div class="mock-athlete-row">
+              <div class="mock-avatar" style="background:linear-gradient(135deg,#00B4BD,#2563EB)">T</div>
+              <div class="mock-athlete-info"><div class="mock-athlete-name">&#30000;&#20013; &#22826;&#37070;</div><div class="mock-athlete-stat">Last session: 2h ago &#183; 12 sessions</div></div>
+              <span class="mock-badge badge-green">Active</span>
+            </div>
+            <div class="mock-athlete-row">
+              <div class="mock-avatar" style="background:linear-gradient(135deg,#8B5CF6,#3D5AFE)">S</div>
+              <div class="mock-athlete-info"><div class="mock-athlete-name">&#37428;&#26408; &#33457;</div><div class="mock-athlete-stat">Last session: 1d ago &#183; 8 sessions</div></div>
+              <span class="mock-badge badge-yellow">Review</span>
+            </div>
+            <div class="mock-athlete-row">
+              <div class="mock-avatar" style="background:linear-gradient(135deg,#F9A825,#FF5F57)">K</div>
+              <div class="mock-athlete-info"><div class="mock-athlete-name">&#21152;&#34276; &#20581;</div><div class="mock-athlete-stat">Last session: 3d ago &#183; 5 sessions</div></div>
+              <span class="mock-badge badge-green">Active</span>
+            </div>
+            <div style="margin-top:auto;display:flex;gap:.3rem">
+              <span class="mock-btn-sm" style="background:rgba(40,200,130,0.15);color:#28C882;border-color:rgba(40,200,130,0.3)">Dashboard</span>
+              <span class="mock-btn-sm">Messages</span>
+              <span class="mock-btn-sm">Settings</span>
+            </div>
+          </div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-type">Frontend &#183; React 19 &#183; TypeScript &#183; SPA</div>
+          <h3>&#12473;&#12509;&#12540;&#12484;&#12467;&#12540;&#12481;&#12531;&#12464;&#12503;&#12521;&#12483;&#12488;&#12501;&#12457;&#12540;&#12512;</h3>
+          <p>コーチとアスリートをつなぐプラットフォーム。選手一覧・セッション管理・メッセージ機能・ダッシュボードをReact 19 + TypeScript + Tailwind CSSで構築。</p>
+          <div class="proj-tags">
+            <span class="proj-tag">React 19</span>
+            <span class="proj-tag">TypeScript</span>
+            <span class="proj-tag">Tailwind CSS v4</span>
+            <span class="proj-tag">React Router</span>
+            <span class="proj-tag">Vite</span>
+            <span class="proj-tag">Lucide Icons</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Inventory System -->
+      <div class="proj-card fade-up">
+        <div class="proj-screen screen-nextjs">
+          <div class="mock-nextjs">
+            <div class="mock-component">
+              <div class="mock-component-label">Pages/Products/Index.tsx</div>
+              <div class="mock-jsx-line"><span class="jsx-tag">&lt;DataTable</span></div>
+              <div class="mock-jsx-line">&nbsp;&nbsp;<span class="jsx-prop">columns</span>=<span class="jsx-str">{productColumns}</span></div>
+              <div class="mock-jsx-line">&nbsp;&nbsp;<span class="jsx-prop">data</span>=<span class="jsx-str">{products}</span></div>
+              <div class="mock-jsx-line"><span class="jsx-tag">/&gt;</span></div>
+            </div>
+            <div class="mock-component">
+              <div class="mock-component-label">Pages/Movements/Index.tsx</div>
+              <div class="mock-jsx-line"><span class="jsx-tag">&lt;StockMovement</span></div>
+              <div class="mock-jsx-line">&nbsp;&nbsp;<span class="jsx-prop">type</span>=<span class="jsx-str">"in" | "out"</span></div>
+              <div class="mock-jsx-line">&nbsp;&nbsp;<span class="jsx-prop">product</span>=<span class="jsx-str">{selected}</span></div>
+              <div class="mock-jsx-line"><span class="jsx-tag">/&gt;</span></div>
+            </div>
+            <div class="mock-preview-bar">
+              <span class="mock-btn-sm">Inertia.js &#10003;</span>
+              <span class="mock-btn-sm">TypeScript &#10003;</span>
+              <span class="mock-btn-sm">SSR Ready</span>
+            </div>
+          </div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-type">Full-Stack &#183; Laravel 13 &#183; Inertia.js &#183; SSR</div>
+          <h3>&#22312;&#24235;&#31649;&#29702;&#12471;&#12473;&#12486;&#12512;</h3>
+          <p>商品マスタ・入出庫管理をLaravel + Inertia.js + React + TypeScriptで構築。SSR対応・リアルタイムな在庫数追跡で倉庫業務を効率化。</p>
+          <div class="proj-tags">
+            <span class="proj-tag">Laravel 13</span>
+            <span class="proj-tag">Inertia.js</span>
+            <span class="proj-tag">React 18</span>
+            <span class="proj-tag">TypeScript</span>
+            <span class="proj-tag">SSR</span>
+            <span class="proj-tag">Tailwind CSS</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- API Backend -->
+      <div class="proj-card fade-up">
+        <div class="proj-screen screen-api">
+          <div class="mock-api">
+            <div class="mock-endpoint">
+              <span class="method method-get">GET</span>
+              <span class="endpoint-path">/api/v1/cases?status=open</span>
+            </div>
+            <div class="mock-endpoint">
+              <span class="method method-post">POST</span>
+              <span class="endpoint-path">/api/v1/shipments</span>
+            </div>
+            <div class="mock-endpoint">
+              <span class="method method-put">PUT</span>
+              <span class="endpoint-path">/api/v1/invoices/{id}/approve</span>
+            </div>
+            <div class="mock-endpoint">
+              <span class="method method-get">GET</span>
+              <span class="endpoint-path">/api/v1/reports/monthly</span>
+            </div>
+            <div class="mock-endpoint">
+              <span class="method method-post">POST</span>
+              <span class="endpoint-path">/api/v1/exports/yupack-csv</span>
+            </div>
+            <div class="mock-response">200 OK &#183; {"status":"success","data":[...]}</div>
+          </div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-type">Backend &#183; Laravel API &#183; &#12471;&#12473;&#12486;&#12512;&#36899;&#25658;</div>
+          <h3>&#26989;&#21209;&#12471;&#12473;&#12486;&#12512;API&#22522;&#30436;</h3>
+          <p>Laravel Sanctum認証・リソースベースAPI設計。フロントエンド（React / Next.js）との分離構成で、CSV/PDF帳票出力APIも提供。モバイル展開にも対応できる拡張性の高い設計。</p>
+          <div class="proj-tags">
+            <span class="proj-tag">Laravel Sanctum</span>
+            <span class="proj-tag">REST API</span>
+            <span class="proj-tag">Laravel Resource</span>
+            <span class="proj-tag">PHPUnit</span>
+            <span class="proj-tag">Pest</span>
+            <span class="proj-tag">Spatie Query Builder</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<div class="exp-banner">
+  <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&auto=format&fit=crop&q=60" alt="オフィス" loading="lazy"/>
+  <div class="exp-banner-text">
+    <h2>10年以上のキャリア</h2>
+    <p>製造業・小売・サービス業など多業種のDXを牽引</p>
+  </div>
+</div>
+<!-- EXPERIENCE TIMELINE -->
+<section id="experience">
+  <div class="inner">
+    <p class="eyebrow">Experience</p>
+    <h2 class="sec-title">開発キャリア</h2>
+    <div class="exp-timeline">
+      <div class="exp-item fade-up">
+        <div class="exp-year">2024 &#8212; Present</div>
+        <div class="exp-title">AI駆動フルスタック開発 / Flutterモバイルアプリ</div>
+        <div class="exp-desc">Claude API・ElevenLabs APIを活用したAIアプリ開発。Flutter + Clean Architectureによるモバイルアプリ。Cloud Run + GitHub Actionsによるモダンなデプロイパイプライン構築。</div>
+        <div class="exp-tags">
+          <span class="pill teal">Flutter</span>
+          <span class="pill teal">Claude API</span>
+          <span class="pill">Cloud Run</span>
+          <span class="pill">Docker</span>
+          <span class="pill">GitHub Actions</span>
+        </div>
+      </div>
+      <div class="exp-item fade-up">
+        <div class="exp-year">2023 &#8212; 2024</div>
+        <div class="exp-title">エンタープライズ業務システム / DXアドバイザリー</div>
+        <div class="exp-desc">製造業基幹システム・アフターサービストラブル管理・CRM等の大規模業務システムをLaravel + React + TypeScriptで開発。30テーブル規模のDB設計からPDF帳票生成まで一気通貫で対応。</div>
+        <div class="exp-tags">
+          <span class="pill">Laravel 12/13</span>
+          <span class="pill">React 19</span>
+          <span class="pill">Inertia.js</span>
+          <span class="pill teal">TypeScript</span>
+          <span class="pill">DomPDF</span>
+        </div>
+      </div>
+      <div class="exp-item fade-up">
+        <div class="exp-year">2020 &#8212; 2023</div>
+        <div class="exp-title">業務システム開発 / DX推進コンサルティング</div>
+        <div class="exp-desc">複数企業向けにLaravel・Next.jsベースの業務システム開発とDX推進支援を実施。紙・Excelベース業務のシステム化で業務時間を平均34%削減。現場定着化まで伴走。</div>
+        <div class="exp-tags">
+          <span class="pill">Laravel</span>
+          <span class="pill">Next.js</span>
+          <span class="pill teal">DX&#25126;&#30053;</span>
+          <span class="pill teal">&#26989;&#21209;&#20998;&#26512;</span>
+          <span class="pill">&#35201;&#20214;&#23450;&#32681;</span>
+        </div>
+      </div>
+      <div class="exp-item fade-up">
+        <div class="exp-year">2015 &#8212; 2020</div>
+        <div class="exp-title">SE / Web&#12450;&#12503;&#12522;&#12465;&#12540;&#12471;&#12519;&#12531;&#38283;&#30330;</div>
+        <div class="exp-desc">PHP・Laravel・jQueryからReact・TypeScriptへの技術遷移を経験。業務システム開発のベースとなるバックエンド/フロントエンドスキルを確立。</div>
+        <div class="exp-tags">
+          <span class="pill">PHP</span>
+          <span class="pill">Laravel</span>
+          <span class="pill">MySQL</span>
+          <span class="pill">JavaScript</span>
+          <span class="pill teal">Linux</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI TOOLS -->
+<section id="aitools">
+  <div class="inner">
+    <p class="eyebrow">AI-Assisted Development</p>
+    <h2 class="sec-title">AIで<br>開発を加速</h2>
+    <div class="ai-grid">
+      <div class="ai-card fade-up">
+        <div class="ai-logo">
+          <span style="width:28px;height:28px;background:linear-gradient(135deg,#E040FB,#3D5AFE);border-radius:6px;display:inline-block"></span>
+          AI&#12450;&#12471;&#12473;&#12488;&#38283;&#30330;
+        </div>
+        <p>Claude Code・Claude APIを開発の中核に組み込み、要件定義からコーディング・レビュー・ドキュメント作成まで一貫してAIを活用。開発速度と品質を同時に向上させています。</p>
+        <div class="ai-uses">
+          <div class="ai-use-item">Claude Codeによるペアプログラミング・コード生成</div>
+          <div class="ai-use-item">Claude APIを組み込んだAI会話アプリの開発</div>
+          <div class="ai-use-item">要件定義書・仕様書・技術ドキュメントの作成支援</div>
+          <div class="ai-use-item">コードレビュー・リファクタリング・テスト生成</div>
+          <div class="ai-use-item">プロンプトエンジニアリング・システムプロンプト設計</div>
+        </div>
+      </div>
+      <div class="ai-card fade-up">
+        <div class="ai-logo">
+          <span style="width:28px;height:28px;background:linear-gradient(135deg,#00B4BD,#2563EB);border-radius:6px;display:inline-block"></span>
+          AI&#12450;&#12503;&#12522;&#12465;&#12540;&#12471;&#12519;&#12531;&#38283;&#30330;
+        </div>
+        <p>Claude API + ElevenLabs音声合成 + pgvectorベクトル検索を組み合わせたAIネイティブなモバイルアプリを開発。課金基盤（RevenueCat）やウェルビーイング対応まで含むプロダクト設計。</p>
+        <div class="ai-uses">
+          <div class="ai-use-item">Claude APIによるキャラクターAI会話エンジン</div>
+          <div class="ai-use-item">ElevenLabs APIによる音声合成連携</div>
+          <div class="ai-use-item">pgvectorによる会話記憶・コンテキスト管理</div>
+          <div class="ai-use-item">RevenueCatによるフリーミアム課金モデル設計</div>
+          <div class="ai-use-item">App Store審査を見据えたAI倫理・ウェルビーイング設計</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="inner">
+    <div class="contact-wrap">
+      <div class="contact-info">
+        <p class="eyebrow">Contact</p>
+        <h2>一緒に<br>プロジェクトを<br>進めませんか？</h2>
+        <p style="margin-top:1rem">業務システム開発・モバイルアプリ開発・DX推進・AIアプリケーション開発など、お気軽にご相談ください。</p>
+        <div style="margin-top:1.5rem">
+          <div class="contact-detail">
+            <div class="contact-icon">&#9993;&#65039;</div>
+            <div>
+              <span class="contact-label">Email</span>
+              <span class="contact-val">y.kitagawa.dx@gmail.com</span>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:2rem">
+          <a href="mailto:y.kitagawa.dx@gmail.com" class="btn btn-primary">&#12513;&#12540;&#12523;&#12391;&#21839;&#12356;&#21512;&#12431;&#12379;&#12427;</a>
+        </div>
+      </div>
+      <div class="contact-avail fade-up">
+        <div class="avail-title">&#29694;&#22312;&#12398;&#23550;&#24540;&#29366;&#27841;</div>
+        <div class="avail-item">
+          <span>&#26989;&#21209;&#12471;&#12473;&#12486;&#12512;&#38283;&#30330;&#65288;Laravel&#65289;</span>
+          <span class="avail-status status-open">&#21463;&#20184;&#20013;</span>
+        </div>
+        <div class="avail-item">
+          <span>&#12501;&#12525;&#12531;&#12488;&#12456;&#12531;&#12489;&#38283;&#30330;&#65288;React/Next.js&#65289;</span>
+          <span class="avail-status status-open">&#21463;&#20184;&#20013;</span>
+        </div>
+        <div class="avail-item">
+          <span>&#12514;&#12496;&#12452;&#12523;&#12450;&#12503;&#12522;&#38283;&#30330;&#65288;Flutter&#65289;</span>
+          <span class="avail-status status-open">&#21463;&#20184;&#20013;</span>
+        </div>
+        <div class="avail-item">
+          <span>AI&#12450;&#12503;&#12522;&#12465;&#12540;&#12471;&#12519;&#12531;&#38283;&#30330;</span>
+          <span class="avail-status status-open">&#21463;&#20184;&#20013;</span>
+        </div>
+        <div class="avail-item">
+          <span>AWS&#12452;&#12531;&#12501;&#12521;&#27083;&#31689;&#12539;&#36939;&#29992;</span>
+          <span class="avail-status status-open">&#21463;&#20184;&#20013;</span>
+        </div>
+        <div class="avail-item">
+          <span>DX&#25512;&#36914;&#12450;&#12489;&#12496;&#12452;&#12470;&#12522;&#12540;</span>
+          <span class="avail-status status-open">&#21463;&#20184;&#20013;</span>
+        </div>
+        <div class="avail-item">
+          <span>&#12473;&#12509;&#12483;&#12488;&#12467;&#12531;&#12469;&#12523;&#12486;&#12451;&#12531;&#12464;</span>
+          <span class="avail-status status-ask">&#35201;&#30456;&#35527;</span>
+        </div>
+        <div style="margin-top:1.5rem;padding:1rem;background:rgba(0,180,189,0.06);border:1px solid rgba(0,180,189,0.15);border-radius:6px;font-size:.82rem;color:var(--mid);line-height:1.7">
+          &#128197; &#21021;&#22238;&#30456;&#35527;&#12399;&#28961;&#26009;&#12391;&#25215;&#12387;&#12390;&#12356;&#12414;&#12377;&#12290;&#12414;&#12378;&#12399;&#12362;&#27671;&#36605;&#12395;&#12513;&#12540;&#12523;&#12367;&#12384;&#12373;&#12356;&#12290;
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<div style="position:relative;height:180px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#0F1B35;">
+  <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1600&auto=format&fit=crop&q=50" alt="テクノロジー" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.15;"/>
+  <div style="position:relative;z-index:1;text-align:center;">
+    <p style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;font-weight:600;color:#F0EEF8;margin-bottom:.5rem;">現場に寄り添い、技術で課題を解決する。</p>
+    <p style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--teal);letter-spacing:.12em;">y.kitagawa.dx@gmail.com</p>
+  </div>
+</div>
+<footer>
+  <span>&#169; 2025 Yoshinori Kitagawa</span>
+  <span>Built with &#10084;</span>
+</footer>
+
+<script>
+const els = document.querySelectorAll('.fade-up');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+els.forEach(el => obs.observe(el));
+
+const cursor = document.querySelector('.t-val');
+if (cursor) {
+  setInterval(() => { cursor.style.opacity = cursor.style.opacity === '0' ? '1' : '0'; }, 600);
+}
+</script>
+</body>
+</html>
